@@ -13,7 +13,13 @@ state={
 
 componentDidMount(){
     let rooms = this.formatData(items);
-    console.log(rooms)
+    let featuredRooms = rooms.filter(room => room.featured === true);
+    this.setState({
+        rooms: rooms, 
+        featuredRooms: featuredRooms, 
+        sortedRooms: rooms, 
+        loading:false
+    })
 }
 
 formatData(items){
