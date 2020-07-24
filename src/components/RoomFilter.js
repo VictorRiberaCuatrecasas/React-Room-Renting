@@ -1,9 +1,34 @@
-import React from 'react'
+import React from 'react';
+import {useContext} from "react";
+import {RoomContext} from "../context"
+import Title from "./Title";
 
-export default function RoomsFilter() {
+const getUnique = (items, value) =>{
+    return [...new Set(items.map(item => item[value]))]
+}
+
+
+export default function RoomsFilter({rooms}) {
+const context = useContext(RoomContext);
+const {handleChange, type, capacity, price, minPrice, maxPrize, minSize, maxSize, breakfast, pets} = context;
+
+let types = getUnique(rooms, "type");
+types = ["all", ...types];
+types = types.map((item,index)=>{
+    return <option value={item} key={index}>{item}</option>
+})
+
     return (
-        <div>
-            hi from rooms filter
-        </div>
+        <section className="filter-container">
+            <Title title="search rooms" />
+            <form action="" className="filter-form">
+                <div className="form-group">
+                    <label htmlFor="type">room type</label>
+                    <select name="type" id="type" value={type} className="form-control" onChange={handleChange}>
+                        {types}
+                    </select>
+                </div>
+            </form>
+        </section>
     )
 }
